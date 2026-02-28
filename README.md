@@ -1,88 +1,147 @@
-🔎 Laboratório de Threat Hunting – Análise de IOC com FireEye Redline
-📌 Visão Geral
+# 🔎 IOC-Based Threat Hunting Lab | FireEye Redline
 
-Este projeto documenta um laboratório prático de Threat Hunting utilizando o FireEye Redline para investigação baseada em Indicadores de Compromisso (IOC) em ambiente controlado.
+## 📌 Visão Geral
 
-O objetivo foi gerar um IOC Search Collector, executar auditoria em um diretório suspeito e analisar o relatório .mans gerado para identificar artefatos maliciosos.
+Este projeto documenta um laboratório prático de Threat Hunting utilizando o **FireEye Redline** para investigação baseada em Indicadores de Compromisso (IOCs) em ambiente controlado Windows.
 
-🛠 Ferramentas Utilizadas
+O objetivo foi simular um fluxo real de investigação SOC, aplicando coleta direcionada, validação de hashes e análise de artefatos suspeitos dentro de um diretório monitorado.
 
-FireEye Redline
+---
 
-Windows 10 (Ambiente Virtualizado – VirtualBox)
+## 🎯 Objetivos do Laboratório
 
-IOC Search Collector
+- Criar e configurar um IOC Search Collector
+- Definir escopo adequado de varredura
+- Executar auditoria direcionada em diretório suspeito
+- Gerar sessão de análise (.mans)
+- Identificar artefatos acionados por IOC
+- Validar hashes MD5
+- Documentar evidências encontradas
 
-Análise de Hash MD5
+---
 
-🎯 Cenário
+## 🛠 Ambiente e Ferramentas Utilizadas
 
-Foi realizada auditoria no diretório:
+- FireEye Redline
+- Windows 10 (VirtualBox)
+- IOC Search Collector
+- Análise de Hash MD5
+- Estrutura de diretório simulando ambiente comprometido
 
-TARGETDIRECTORY
+---
 
-Após execução do coletor, foi gerado um relatório de IOC contendo arquivos que acionaram indicadores de comprometimento.
+## 🚨 Contexto do Incidente (Simulado)
 
-A investigação exigiu:
+Durante monitoramento em ambiente controlado, foi identificado um diretório contendo arquivos potencialmente suspeitos (`TARGETDIRECTORY`).
 
-Identificação de arquivos por hash MD5
+Foi iniciada investigação baseada em IOC com o objetivo de:
 
-Validação de tamanhos específicos
+- Detectar arquivos associados a hashes conhecidos
+- Identificar artefatos maliciosos
+- Confirmar presença de indicadores de comprometimento
+- Documentar evidências técnicas
 
-Identificação de caminhos completos
+---
 
-Interpretação do IOC Report
+## 🔎 Metodologia de Investigação
 
-🔍 Processo de Investigação
+1. Criação do IOC Search Collector
+2. Definição do escopo de varredura (File Enumeration Path direcionado)
+3. Execução do coletor
+4. Geração da sessão de análise (.mans)
+5. Abertura do IOC Report
+6. Análise de:
+   - Hash MD5
+   - Tamanho do arquivo
+   - Caminho completo
+   - Metadados
+7. Validação manual dos artefatos identificados
 
-Criação do IOC Search Collector
+A investigação foi conduzida simulando fluxo operacional de um SOC N1.
 
-Execução do coletor no diretório alvo
+---
 
-Geração da sessão .mans
+## 📊 Principais Resultados
 
-Abertura do IOC Report
+- 1 Indicador de Compromisso acionado
+- Múltiplos arquivos identificados no relatório
+- Executável detectado por hash malicioso
+- Arquivo com tamanho específico (144557 bytes) validado
+- Evidências confirmadas diretamente no IOC Report
 
-Análise de:
+---
 
-Hash MD5
+## 📁 Artefatos Identificados
 
-Tamanho do arquivo
+| Nome do Arquivo | Tamanho | Observação |
+|-----------------|----------|------------|
+| k3y09g3m2.exe | 81 bytes | Executável com hash associado a IOC |
+| young_golden_retriever_1504846_638x426.jpg | 144557 bytes | Tamanho acionado por indicador |
+| Weekly Meeting Notes.docx | 273 bytes | Arquivo relacionado a IOC específico |
 
-Caminho completo
+---
 
-Metadados de criação/modificação
+## ⚠️ Classificação do Risco (Ambiente Simulado)
 
-📊 Principais Resultados
+Com base na análise dos artefatos:
 
-1 Indicador de Compromisso acionado
+- Executável identificado via hash malicioso
+- Evidências confirmadas no diretório monitorado
+- Correspondência com indicadores previamente definidos
 
-Múltiplos arquivos analisados
+Classificação: **Médio a Alto Risco (ambiente controlado)**
 
-Executável identificado por hash malicioso
+Recomendação simulada:
+- Isolamento do diretório
+- Análise complementar do executável
+- Validação adicional em sandbox
 
-Arquivo de tamanho específico validado
+---
 
-Evidências confirmadas diretamente no relatório IOC
+## 🎯 Possível Mapeamento MITRE ATT&CK
 
-🧠 Competências Demonstradas
+- Tactic: Execution
+- Technique: T1204 – User Execution
+- Technique: T1059 – Command and Scripting Interpreter (potencial)
 
-Análise baseada em IOC
+---
 
-Validação de Hash (MD5)
+## 🧠 Competências Demonstradas
 
-Triage de artefatos
+- Investigação baseada em IOC
+- Validação de hash (MD5)
+- Triage de artefatos
+- Interpretação de relatório forense (.mans)
+- Definição de escopo de coleta
+- Processo investigativo estruturado
+- Mentalidade analítica aplicada a SOC
 
-Interpretação de relatórios forenses
+---
 
-Processo investigativo em ambiente SOC
+## 🔮 Possíveis Evoluções
 
-🚀 Objetivo
+- Automatizar validação de hashes via Python
+- Integrar consulta em bases públicas de malware (ambiente controlado)
+- Simular múltiplos IOCs em diferentes diretórios
+- Expandir análise para resposta a incidente
 
-Simular fluxo real de investigação em ambiente SOC, validando indicadores e confirmando possíveis comprometimentos através de análise estruturada.
+---
 
-👤 Autor
+## 🧾 Conclusão
 
-José Gomes
-Estudante de Cibersegurança
+Este laboratório reforçou a importância de:
+
+- Definição correta de escopo de coleta
+- Validação técnica de indicadores
+- Correlação entre hash, tamanho e caminho do arquivo
+- Documentação estruturada de evidências
+
+A prática simulou um cenário real de triagem SOC, fortalecendo habilidades técnicas voltadas para detecção e análise de ameaças.
+
+---
+
+## 👤 Autor
+
+José Gomes  
+Estudante de Cibersegurança  
 Foco em SOC | Blue Team | Threat Detection
